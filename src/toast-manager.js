@@ -50,10 +50,13 @@ var ToastsManager = (function () {
             resolve(_this.setupToast(toast, options));
         });
     };
-    ToastsManager.prototype.createTimeout = function (toast) {
+    ToastsManager.prototype.createTimeout = function (toast, options) {
         var _this = this;
         var task = setTimeout(function () {
             _this.clearToast(toast);
+            if(options && options.hasOwnProperty('onClose')){
+                options.onClose();
+            }
         }, toast.config.toastLife);
         return task.toString();
     };
@@ -69,7 +72,7 @@ var ToastsManager = (function () {
             }
         });
         if (toast.config.dismiss === 'auto') {
-            toast.timeoutId = this.createTimeout(toast);
+            toast.timeoutId = this.createTimeout(toast, options);
         }
         this.container.instance.addToast(toast);
         return toast;
