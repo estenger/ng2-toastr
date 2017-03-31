@@ -14,7 +14,7 @@ export declare class ToastsManager {
     setRootViewContainerRef(vRef: ViewContainerRef): void;
     onClickToast(): Observable<Toast>;
     show(toast: Toast, options?: Object): Promise<Toast>;
-    createTimeout(toast: Toast): any;
+    createTimeout(toast: Toast, options?: any): any;
     setupToast(toast: Toast, options?: any): Toast;
     private _onToastClicked(toast);
     dismissToast(toast: Toast): void;

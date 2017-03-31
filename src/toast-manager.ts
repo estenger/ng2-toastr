@@ -63,9 +63,12 @@ export class ToastsManager {
     });
   }
 
-  createTimeout(toast: Toast): any {
+  createTimeout(toast: Toast, options?: any): any {
     const task = setTimeout(() => {
       this.clearToast(toast);
+      if (options && options.hasOwnProperty('onToastTimeout')) {
+        options.onToastTimeout();
+      }
     }, toast.config.toastLife);
 
     return task.toString();
@@ -87,7 +90,7 @@ export class ToastsManager {
     });
 
     if (toast.config.dismiss === 'auto') {
-      toast.timeoutId = this.createTimeout(toast);
+      toast.timeoutId = this.createTimeout(toast, options);
     }
 
     this.container.instance.addToast(toast);
